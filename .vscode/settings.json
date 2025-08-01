@@ -1,0 +1,8 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "__PR(1)__/lib/jsoup-1.21.1.jar",
+        "c:\\Program Files\\Java\\jre-1.8\\lib\\ext\\jfxrt.jar",
+        "c:\\Users\\Luca.hiller\\Downloads\\jsoup-1.21.1.jar"
+    ]
+}

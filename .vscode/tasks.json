@@ -1,0 +1,17 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build Scraper",
+      "type": "shell",
+      "command": "javac",
+      "args": [
+        "-cp", "lib/jsoup-1.21.1.jar",
+        "-d", "out",
+        "src/Scraper.java"
+      ],
+      "group": "build",
+      "problemMatcher": []
+    }
+  ]
+}
