@@ -10,7 +10,7 @@ from WarframeWiki import WarframeWiki
  # waffen namen nehmen in Sraper packen und wenn keine error masage kommt fortfahren
  # am besten schon dirket bei der erstellung der liste durchfüren
 
-def print_Warframes(count = -1):
+def print_Warframes1(count = -1):
     thisCount = 0
     for kategori in WarframeWiki.primes_List:
             print("_____________________________________________")
@@ -38,14 +38,16 @@ def print_Warframes(count = -1):
                         if count != -1:
                             thisCount += 1   
 
-#print_Warframes()  
+#print_Warframes1()  
 
-scrab = Scraping("grendel prime")
-test = scrab.get_all_info()
-#print(test)
-info_String =""
-for item in test:
-    info_String += f'{item + ": ":-<22}' + str(round(test.get(item)[0], 0)) + "\n"
+def print_Warframes2():
+    scrab = Scraping("grendel prime")
+    test = scrab.get_all_info()
+    #print(test)
+    info_String =""
+    for item in test:
+        info_String += f'{item + ": ":-<22}' + str(round(test.get(item)[0], 0)) + "\n"
 
-print(info_String)
+    print(info_String)
 
+print_Warframes2()

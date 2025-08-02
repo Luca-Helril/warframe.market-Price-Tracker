@@ -8,7 +8,7 @@ class Scraping:
     def __init__(self, produkt):
         self.produkt = produkt.replace(' ', '_')
 
-
+    # prüfen ob noch benötigt wird _____________________________________________
     def getDurchschnittsPreisItem(self, typ):
         url_x = 'https://api.warframe.market/v2/orders/item/'
         url = url_x + self.produkt + "_" + typ
@@ -99,11 +99,11 @@ class Scraping:
         
         return warframe_map
 
-    # später überprüfen ob benötigt wird
+    # später überprüfen ob benötigt wird ___________________________________________
     def get_all_info_toString(self):
         info_Streing = ""
         for item in self.get_all_info():
-            print(item + ": ")
+            #print(item + ": ")
             info_Streing = (item + ": " )
         return info_Streing
 

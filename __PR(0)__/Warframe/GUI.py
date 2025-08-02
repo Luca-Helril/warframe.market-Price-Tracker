@@ -18,15 +18,12 @@ class MyGUI:
         self.label = tk.Label(root, text="", font=('Arial', 15))
         self.label.grid(row= 1, column= 2)
 
-
-
         textbox = tk.Text(root, height=1, font=('Arial', 18)) # height = wie fiele zeilen angezeigt werden
         textbox.grid(row= 2, column= 2) # Fügt das dextfelt hinzu
         # myentry = tk.Entry(root) # hat nur eine zeile
 
-
-        buttonframe = tk.Frame(root)
-        buttonframe.columnconfigure(0, weight=1)
+        buttonframe = tk.Frame(root) # erstellt einen Frame für Buttons
+        buttonframe.columnconfigure(0, weight=1) # Spalte 0 sich beim Vergrößern mit anpasst
         buttonframe.columnconfigure(1, weight=1)
         buttonframe.columnconfigure(2, weight=1)
         buttonframe.columnconfigure(3, weight=1)
@@ -51,10 +48,10 @@ class MyGUI:
                             spalte = thisCount % 5
                             btn.grid(row=zeile, column=spalte, sticky="news", padx=2, pady=2)
                             thisCount += 1
-        anotherbutton = tk.Button(root, text="HOME")
+        anotherbutton = tk.Button(root, text="HOME") # Hat momentan keine funktion _________________________
         anotherbutton.place(x=1, y=1, height=50, width=100) # Plazirung von oben links
 
-        root.mainloop()  # GUI-Schleife starten
+        root.mainloop()  # GUI-Schleife starten, damit wenn man button drückt auch etwas passirt
 
 
     def show_info(self, name):
