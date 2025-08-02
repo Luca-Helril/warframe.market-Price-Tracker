@@ -11,21 +11,19 @@ class MyGUI:
         
         root = tk.Tk()
 
-        root.geometry("1000x650") # Demensionen
+        root.geometry("1050x700") # Demensionen
 
         root.title("Warframe Tracker")
         
-        self.label = tk.Label(root, text="", font=('Arial', 18))
-        self.label.pack(padx=20, pady=20) # setzt distanz zwischen rand und den label und fügt es zur root dazu
+        self.label = tk.Label(root, text="", font=('Arial', 15))
+        self.label.grid(row= 1, column= 2)
 
 
 
-        textbox = tk.Text(root, height=3, font=('Arial', 18)) # height = wie fiele zeilen angezeigt werden
-        textbox.pack() # Fügt das dextfelt hinzu
+        textbox = tk.Text(root, height=1, font=('Arial', 18)) # height = wie fiele zeilen angezeigt werden
+        textbox.grid(row= 2, column= 2) # Fügt das dextfelt hinzu
         # myentry = tk.Entry(root) # hat nur eine zeile
 
-        button = tk.Button(root, text="klick", font=('Arial', 18) )
-        button.pack(padx=20, pady=20)
 
         buttonframe = tk.Frame(root)
         buttonframe.columnconfigure(0, weight=1)
@@ -36,7 +34,9 @@ class MyGUI:
         #buttonframe.pack(padx=10, pady=10, fill='both', expand=True)
 
 
-        buttonframe.pack(fill='x') # streckt in die x demension
+        #buttonframe.pack(fill='x') # streckt in die x demension
+        buttonframe.grid(row=3, column=0, columnspan=5, sticky='ew', padx=5, pady=5)
+
 
 
 
@@ -58,17 +58,21 @@ class MyGUI:
 
 
     def show_info(self, name):
+        print("_________________________________________________________")
         scrab = Scraping(name)
-        String1 = scrab.get_all_durchschitsspreis()
+        #String1 = scrab.get_all_durchschitsspreis()
         #print("_____________________________________________________________")
         #print(name)
-        print(String1)
-        self.label.config(text=name + "\n" + String1)
+        #print(String1)
+        #self.label.config(text=name + "\n" + String1)
+        info = scrab.get_all_info()
+        info_String =""
+        for item in info:
+            info_String += f'{item + ": ":-<13}' + str(round(info.get(item)[0], 0)) + "\n"
+
+        self.label.config(text=name + "\n" + info_String)
+        
 
 
-
-        
-        
-        
 
 MyGUI(50)

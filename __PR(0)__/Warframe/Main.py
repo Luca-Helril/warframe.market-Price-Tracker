@@ -38,8 +38,14 @@ def print_Warframes(count = -1):
                         if count != -1:
                             thisCount += 1   
 
-print_Warframes()  
+#print_Warframes()  
 
-scrab = Scraping("banshee prime")
-String1 = scrab.get_all_durchschitsspreis()
-print(String1)
+scrab = Scraping("grendel prime")
+test = scrab.get_all_info()
+#print(test)
+info_String =""
+for item in test:
+    info_String += f'{item + ": ":-<22}' + str(round(test.get(item)[0], 0)) + "\n"
+
+print(info_String)
+

@@ -46,7 +46,7 @@ class WarframeWiki:
             if weapons_name.find("Prime")>0:
                 primes_List["Weapons"].append(weapons_name.lower())
     """
-    print(primes_List)
+    #print(primes_List)
             
 
 
