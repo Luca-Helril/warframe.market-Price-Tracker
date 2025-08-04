@@ -1,0 +1,14 @@
+Buttons mit bildern der warframes
+    ->https://www.geeksforgeeks.org/python/python-add-image-on-a-tkinter-button/
+
+da wo preise angezeigtwerden buttons wo man abhaken kann welche bauteile man schon hat
+    ->lable nur table erstezen oder andere lösung
+    ->ein fenster wo man diese daten alle einsehen kann und die bearbeiten
+
+wenn man text eigibt werden die buttons die den text endsprechen geheileitet
+    ->Z.B. eingabe feld:"wuko" -> Button"Wukong prime" wird geheileitet
+        -> es muss mit jeden eingabe buchstaben geprüft werden ob ein endsprechender button exestirt
+
+waffen, begleiter
+    ->schaun wo man die informationen herkrigt weil es beim wiki komplikationen gab
+
