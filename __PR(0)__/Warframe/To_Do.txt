@@ -12,3 +12,5 @@ wenn man text eigibt werden die buttons die den text endsprechen geheileitet
 waffen, begleiter
     ->schaun wo man die informationen herkrigt weil es beim wiki komplikationen gab
 
+
+

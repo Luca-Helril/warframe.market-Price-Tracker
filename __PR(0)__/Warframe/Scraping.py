@@ -41,6 +41,9 @@ class Scraping:
         durchschnitts_Preis = round(kumulierter_Preis / Anzahl_Verkäufer,2)
         return durchschnitts_Preis
     
+
+
+    
     def getInfo(self, typ):
         url_x = 'https://api.warframe.market/v2/orders/item/'
         url = url_x + self.produkt + "_" + typ
