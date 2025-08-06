@@ -3,7 +3,8 @@ from tkinter import messagebox
 from tkinter import *
 from Scraping import Scraping
 from WarframeWiki import WarframeWiki
-
+from tkinter import Tk, Label
+from PIL import Image, ImageTk
 
 
 
@@ -54,13 +55,21 @@ class MyGUI:
 
         #buttonframe.pack(fill='x') # streckt in die x demension
         buttonframe.grid(row=4, column=0, columnspan=5, sticky='nsew', padx=5, pady=5)
+#
 
-        photo = PhotoImage(file="bild2.png")
-        photoimage = photo.subsample(4, 4)
+        picture_name = r"ash.png"
+        picture_path = r"D:\__ SAVES __\__PR__\Pictures" + "\\" + picture_name
+        #photo = PhotoImage(file= picture_path)
+        #photoimage = photo.subsample(4, 4)
+        image = Image.open(picture_path)
+        image = image.resize((image.width // 2, image.height // 2))
+        photoimage = ImageTk.PhotoImage(image)
         
+        wiki = WarframeWiki()
+        primes_List = wiki.get_primes_list()
         thisCount = 0
-        for kategori in WarframeWiki.primes_List:
-                for name in WarframeWiki.primes_List[kategori]:
+        for kategori in primes_List:
+                for name in primes_List[kategori]:
                         if (thisCount <= buttons):
             
                             btn = tk.Button(buttonframe, text=name, image = photoimage, compound = LEFT, font=('Arial', 14), command=lambda n=name: self.show_info(n)) # Without this, name would refer to the same variable across all buttons — so they'd all print the last name. Using lambda n=name: captures the current value of name.
