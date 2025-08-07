@@ -5,6 +5,7 @@ from Scraping import Scraping
 from WarframeWiki import WarframeWiki
 from tkinter import Tk, Label
 from PIL import Image, ImageTk
+import os
 
 
 
@@ -57,27 +58,35 @@ class MyGUI:
         buttonframe.grid(row=4, column=0, columnspan=5, sticky='nsew', padx=5, pady=5)
 #
 
-        picture_name = r"ash.png"
-        picture_path = r"D:\__ SAVES __\__PR__\Pictures" + "\\" + picture_name
         #photo = PhotoImage(file= picture_path)
         #photoimage = photo.subsample(4, 4)
-        image = Image.open(picture_path)
-        image = image.resize((image.width // 2, image.height // 2))
-        photoimage = ImageTk.PhotoImage(image)
         
+        self.images = [] # zum speichern der bilder damit sie nicht gelöscht werden wenn das programm den sie werden nichtmher gebaucht
         wiki = WarframeWiki()
         primes_List = wiki.get_primes_list()
         thisCount = 0
         for kategori in primes_List:
                 for name in primes_List[kategori]:
                         if (thisCount <= buttons):
-            
-                            btn = tk.Button(buttonframe, text=name, image = photoimage, compound = LEFT, font=('Arial', 14), command=lambda n=name: self.show_info(n)) # Without this, name would refer to the same variable across all buttons — so they'd all print the last name. Using lambda n=name: captures the current value of name.
-                            zeile = thisCount // 5
-                            spalte = thisCount % 5
-                            btn.grid(row=zeile, column=spalte, sticky="nsew", padx=2, pady=2)
-                            buttonframe.rowconfigure(zeile, weight=1)
-                            thisCount += 1
+                            #print(name)
+                            picture_name = name.lower().replace(" prime", "") + ".png"
+                            #print(picture_name)
+                            picture_path = r"D:\__ SAVES __\__PR__\Pictures" + "\\" + picture_name
+                            #print(picture_path)
+                            if os.path.exists(picture_path):
+                                image = Image.open(picture_path)
+                                image = image.resize((image.width // 1, image.height // 1))
+                                photoimage = ImageTk.PhotoImage(image)
+                                self.images.append(photoimage)
+                
+                                btn = tk.Button(buttonframe, text=name, image = photoimage, compound = LEFT, font=('Arial', 14), anchor="w", padx=10, command=lambda n=name: self.show_info(n)) # Without this, name would refer to the same variable across all buttons — so they'd all print the last name. Using lambda n=name: captures the current value of name.
+                                zeile = thisCount // 5
+                                spalte = thisCount % 5
+                                btn.grid(row=zeile, column=spalte, sticky="nsew", padx=2, pady=2)
+                                buttonframe.rowconfigure(zeile, weight=1)
+                                thisCount += 1
+                            else:
+                                print(picture_path)
         anotherbutton = tk.Button(self.root, text="HOME") # Hat momentan keine funktion _________________________
         anotherbutton.place(x=1, y=1, height=50, width=100) # Plazirung von oben links
 

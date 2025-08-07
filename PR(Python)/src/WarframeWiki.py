@@ -30,15 +30,15 @@ class WarframeWiki:
                 Prime_Name = frames.find('span', style="color:gold;")
                 #print(Prime_Name.text + " Prime") 
                 if Prime_Name and not Prime_Name.text.lower() == 'excalibur':
-                    primes_List["Warframes"].append(Prime_Name.text.lower() + " prime")
+                    self.primes_List["Warframes"].append(Prime_Name.text.lower() + " prime")
             
             with open('Warframe_Wiki_info.pkl', 'wb') as f:
-                pickle.dump(primes_List, f)
+                pickle.dump(self.primes_List, f)
             
         with open('Warframe_Wiki_info.pkl', 'rb') as f:
-            primes_List = pickle.load(f)
+            self.primes_List = pickle.load(f)
         
-        return primes_List
+        return self.primes_List
 
     
     def get_images(self):
@@ -58,7 +58,7 @@ class WarframeWiki:
 
         x = 0
         for item in soup.find_all('img'):
-            if x > 10: # es werden x durchläufe gemacht
+            if x > 700: # es werden x durchläufe gemacht
                 break
             x += 1
             
@@ -76,12 +76,12 @@ class WarframeWiki:
             # Vollständiger Pfad zum Speichern
             filepath = os.path.join(output_dir, filename)
             
-            print(filepath)
+            #print(filepath)
 
             image_data = requests.get(image_url).content
             with open(filepath, 'wb') as f:
                 f.write(image_data)
-            print(f"Gespeichert: {filename}")
+            #print(f"Gespeichert: {filename}")
 
 
 
