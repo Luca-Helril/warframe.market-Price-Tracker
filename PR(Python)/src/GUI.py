@@ -43,7 +43,7 @@ class MyGUI:
         textbox.grid(row= 3, column= 2) # Fügt das dextfelt hinzu
         # myentry = tk.Entry(root) # hat nur eine zeile
 
-        # genauer nachschauen wie es funktionirt
+        # sorgt dafür, dass die Hauptspalten im gesamten Fenster flexibel sind.
         self.root.columnconfigure(0, weight=1)
         self.root.columnconfigure(1, weight=1)
         self.root.columnconfigure(2, weight=1)
@@ -51,6 +51,7 @@ class MyGUI:
         self.root.columnconfigure(4, weight=1)
         self.root.rowconfigure(4, weight=1)
 
+        # sorgt dafür, dass im Inneren des Buttonbereichs die Buttons auch gleichmäßig Platz kriegen
         buttonframe = tk.Frame(self.root) # erstellt einen Frame für Buttons
         buttonframe.columnconfigure(0, weight=1) # Spalte 0 sich beim Vergrößern mit anpasst
         buttonframe.columnconfigure(1, weight=1)

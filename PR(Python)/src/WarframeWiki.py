@@ -92,7 +92,7 @@ class WarframeWiki:
                 f.write(image_data)
             #print(f"Gespeichert: {filename}")
     
-    
+    #set, set
     def get_owned_list(self):
         prime_list_temp = self.get_primes_list()
         bauteile = {
@@ -121,6 +121,8 @@ class WarframeWiki:
 wf = WarframeWiki()
 wf.set_owed("Warframes", "ash prime", "set", True)
 print(wf.Warframe_ownd_info_list["Warframes"]["ash prime"])
+besitzt_set = wf.Warframe_ownd_info_list["Warframes"]["ash prime"]["set"]
+print(besitzt_set)  # True oder False
     
             
 
