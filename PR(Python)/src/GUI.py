@@ -6,6 +6,11 @@ from WarframeWiki import WarframeWiki
 from tkinter import Tk, Label
 from PIL import Image, ImageTk
 import os
+from tkinter import *
+from tkinter.ttk import *
+from tkinter import Image
+from PIL import Image, ImageTk
+from GUI2 import MyGUI2
 
 
 
@@ -87,7 +92,7 @@ class MyGUI:
                                 thisCount += 1
                             else:
                                 print(picture_path)
-        anotherbutton = tk.Button(self.root, text="HOME") # Hat momentan keine funktion _________________________
+        anotherbutton = tk.Button(self.root, text="HOME", command = self.open_new_window) # Hat momentan keine funktion _________________________
         anotherbutton.place(x=1, y=1, height=50, width=100) # Plazirung von oben links
 
         self.root.mainloop()  # GUI-Schleife starten, damit wenn man button drückt auch etwas passirt
@@ -100,9 +105,10 @@ class MyGUI:
         info_String =""
         for item in info:
             info_String += f'{item + ": ":.<15}' + str(round(info.get(item)[0], 0)) + "\n"
-
         self.label.config(text=name + "\n" + info_String)
         
+    def open_new_window(self):
+        MyGUI2(self.root)
 
 
 

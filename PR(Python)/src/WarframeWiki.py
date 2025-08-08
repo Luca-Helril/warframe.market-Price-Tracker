@@ -14,6 +14,15 @@ class WarframeWiki:
             "Warframes": [],
         }
 
+        
+        if not os.path.exists('Warframe_ownd_info.pkl'):
+            owned_data = self.get_owned_list()
+            with open('Warframe_ownd_info.pkl', 'wb') as f:
+                pickle.dump(owned_data, f)
+        
+        with open('Warframe_ownd_info.pkl', 'rb') as f:
+            self.Warframe_ownd_info_list = pickle.load(f)
+
 
     def get_primes_list(self):
         if not os.path.exists('Warframe_Wiki_info.pkl') or False: # Wenn die Warframe liste nochmal erneuert werden soll False -> True
@@ -82,9 +91,36 @@ class WarframeWiki:
             with open(filepath, 'wb') as f:
                 f.write(image_data)
             #print(f"Gespeichert: {filename}")
+    
+    
+    def get_owned_list(self):
+        prime_list_temp = self.get_primes_list()
+        bauteile = {
+            "set" : False,
+            "blueprint" : False,
+            "chassis" : False,
+            "neuroptics" : False,
+            "system" : False
+        }
+
+        owned_list = {"Warframes": {}}
+
+        for kategori in prime_list_temp:
+            for name in prime_list_temp[kategori]:
+                owned_list[kategori][name] = bauteile.copy()
+        #print(owned_list)
+        return owned_list
+
+    def set_owed(self, kategori, warframe_name, bauteil, zustand): # alles sind strings, zustand= boolean
+        self.Warframe_ownd_info_list[kategori][warframe_name][bauteil] = zustand
+        with open('Warframe_ownd_info.pkl', 'wb') as f:
+            pickle.dump(self.Warframe_ownd_info_list, f)
 
 
 
+wf = WarframeWiki()
+wf.set_owed("Warframes", "ash prime", "set", True)
+print(wf.Warframe_ownd_info_list["Warframes"]["ash prime"])
     
             
 
