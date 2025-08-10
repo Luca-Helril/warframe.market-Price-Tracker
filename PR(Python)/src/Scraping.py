@@ -67,7 +67,7 @@ class Scraping:
         return warframe_map
             
         
-        return komolirter_String
+        
     
 
     
