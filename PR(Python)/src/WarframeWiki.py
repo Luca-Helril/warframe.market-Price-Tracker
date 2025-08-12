@@ -94,8 +94,10 @@ class WarframeWiki:
                 f.write(image_data)
             #print(f"Gespeichert: {filename}")
     
-    
+    # gibt eine liste zurück die ändweder schon exestirt oder die neu gemacht wird
+    # ["kategori"]: ["name1", "name2" ...]: ["set", "blueprint", "chassis"...]: [boolean]
     def get_owned_list(self):
+        # wenn die datei bereit exestirt wird zie zurück gegeben
         if os.path.exists('Warframe_ownd_info.pkl'):
             with open('Warframe_ownd_info.pkl', 'rb') as f:
                 return pickle.load(f)
@@ -117,6 +119,7 @@ class WarframeWiki:
             #print(owned_list)
             return owned_list
 
+    # aktualisirt die boolean werte der bauteile für die warframes, also ob sie in besitz sind oder nicht
     def set_owed(self, kategori, warframe_name, bauteil, zustand): # alles sind strings, zustand= boolean
         self.Warframe_ownd_info_list[kategori][warframe_name][bauteil] = zustand
         with open('Warframe_ownd_info.pkl', 'wb') as f:

@@ -23,9 +23,7 @@ class MyGUI2:
         self.window.title("Daten Sammlung")
         self.window.geometry("900x600")
 
-        
-        
-
+        # wenn gerückt wird wird das window geschlossen
         close_btn = ttk.Button(self.window, text="Close", command=self.window.destroy)
         close_btn.pack(pady=10)
 
@@ -44,19 +42,18 @@ class MyGUI2:
         primes_List = wf.get_primes_list()
         owed_list = wf.get_owned_list()
 
-        self.images = []
+        self.images = [] # liste wo die bilder gespeichert werden damit sie nicht austomatisch gelöscht werden
 
         buttongröße = 1
         font_size = 10
         thisCount = 0
 
-
+        # liest liste mit allem warframes aus z.b.["warframe": [name1, name2, name3]]
         for kategori in primes_List:
             for name in primes_List[kategori]:
                 picture_name = name.lower().replace(" prime", "") + ".png"
-                #print(picture_name)
                 picture_path = r"D:\__ SAVES __\__PR__\Pictures" + "\\" + picture_name
-                if os.path.exists(picture_path):
+                if os.path.exists(picture_path): #wenn bild für den warframe exestirt
                     zeile = thisCount // 5
 
                     # Image
@@ -76,13 +73,14 @@ class MyGUI2:
                     bauteil_list = ["blueprint", "chassis", "neuroptics", "system"]
                     thisCount2 = 1
                     for bauteil in bauteil_list:
-                        besitz_zustand = owed_list[kategori][name][bauteil]
+                        besitz_zustand = owed_list[kategori][name][bauteil] # Ture oder False wert
                         
                         btn2 = tk.Button(buttonframe,text=bauteil, width=buttongröße, height=2, font=('Arial', font_size), anchor="w", padx=5)
                         
                         btn2.grid(row=zeile, column=thisCount2, sticky="nsew", padx=2, pady=2)
                         btn2.config(command=lambda k=kategori, n=name, b=bauteil, wf=wf, btn=btn2: self.change_state(k, n, b, wf, btn))
-                        if besitz_zustand:
+                        
+                        if besitz_zustand: # wemm der boolean wert True ist, also das bauteil ist in besitz wird die farbe zu einen hälleren grau ge#ndert
                             btn2.config(bg='gray50')
 
                         thisCount2 += 1
@@ -92,21 +90,22 @@ class MyGUI2:
 
         buttonframe.pack(expand=True, fill='both')
 
+    # Der boolean value für die bauteile wird geändert und in bezihung dazu auch die farbe der buttons
     def change_state(self, kategori, name, bauteil, warframeWki, btn):
+        
         owned = warframeWki.get_owned_list()
-        current = owned[kategori][name][bauteil]
+        current = owned[kategori][name][bauteil] # Ture oder False wert
         new_zustand = not current
 
-        warframeWki.set_owed(kategori, name, bauteil, new_zustand)
+        warframeWki.set_owed(kategori, name, bauteil, new_zustand) # setzt den boolean auf das gegenteil als was er forher wahr
 
         # link zu farben https://cs111.wellesley.edu/archive/cs111_fall14/public_html/labs/lab12/tkintercolor.html
         if new_zustand:
-            btn.config(bg='gray50')
+            btn.config(bg='gray50') # Tue
         else:
-            btn.config(bg=ttk.Style().lookup('TButton', 'background'))
+            btn.config(bg=ttk.Style().lookup('TButton', 'background')) # False (Defaoult color)
         
-
-        print(warframeWki.get_owned_list()[kategori][name][bauteil])
+        #print(warframeWki.get_owned_list()[kategori][name][bauteil])
 
 
 

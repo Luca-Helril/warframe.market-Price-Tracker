@@ -27,6 +27,8 @@ class MyGUI:
         self.root.geometry("900x600") # Demensionen
         self.root.title("Warframe Tracker")
 
+
+        # anstat die informationen in ein label auszugeben, in einer liste ausgeben ______________________________________
         if 1== 2:
             for i in range(7):
                 for j in range(3):
@@ -36,6 +38,7 @@ class MyGUI:
                     self.e.insert(END, "test")
 
         
+        #Label wo wenn der knopf eines warframes gedrückt wird die warframe.market informationen über ihn angezeigt werden
         self.label = tk.Label(self.root, text="\n\n\n\n\n\n\n\n", font=('Arial', 15), anchor="w", justify=tk.LEFT)
         self.label.grid(sticky = N, row= 2, column= 2)
 
@@ -71,46 +74,47 @@ class MyGUI:
         wiki = WarframeWiki()
         primes_List = wiki.get_primes_list()
         thisCount = 0
+        # liest liste mit allem warframes aus z.b.["warframe": [name1, name2, name3]]
         for kategori in primes_List:
                 for name in primes_List[kategori]:
-                        if (thisCount <= buttons):
-                            #print(name)
+                        if (thisCount <= buttons): # ist nicht wirklich benötogt nur zm einschränken damit tästen nicht so lange dauer ___________________________
                             picture_name = name.lower().replace(" prime", "") + ".png"
-                            #print(picture_name)
                             picture_path = r"D:\__ SAVES __\__PR__\Pictures" + "\\" + picture_name
-                            #print(picture_path)
-                            if os.path.exists(picture_path):
+                            if os.path.exists(picture_path): #wenn bild für den warframe exestirt
                                 image = Image.open(picture_path)
                                 image = image.resize((image.width // 1, image.height // 1))
                                 photoimage = ImageTk.PhotoImage(image)
-                                self.images.append(photoimage)
+                                self.images.append(photoimage) #damit die bilder gespeichert werden und nicht automatisch gelöscht werden
                 
                                 btn = tk.Button(buttonframe, text=name, image = photoimage, compound = LEFT, font=('Arial', 14), anchor="w", padx=10, command=lambda n=name: self.show_info(n)) # Without this, name would refer to the same variable across all buttons — so they'd all print the last name. Using lambda n=name: captures the current value of name.
+                                
                                 zeile = thisCount // 5
                                 spalte = thisCount % 5
+                                
                                 btn.grid(row=zeile, column=spalte, sticky="nsew", padx=2, pady=2)
                                 buttonframe.rowconfigure(zeile, weight=1)
                                 thisCount += 1
                             else:
                                 print(picture_path)
-        anotherbutton = tk.Button(self.root, text="HOME", command = self.open_new_window) # Hat momentan keine funktion _________________________
+        anotherbutton = tk.Button(self.root, text="HOME", command = self.open_new_window) #wenn der button gedrücht wird wechelt mann in das fenster von GUI2.py
         anotherbutton.place(x=1, y=1, height=50, width=100) # Plazirung von oben links
 
         self.root.mainloop()  # GUI-Schleife starten, damit wenn man button drückt auch etwas passirt
 
 
+    #Gibt die informationen zu den warframe dessen Button man angeklickt hat in Lable aus
     def show_info(self, name):
-        print(">")
         scrab = Scraping(name)
         info = scrab.get_all_info()
         info_String =""
         for item in info:
             info_String += f'{item + ": ":.<15}' + str(round(info.get(item)[0], 0)) + "\n"
         self.label.config(text=name + "\n" + info_String)
-        
+
+    #Öffnet ein neues fenster von der classe GUI2.py    
     def open_new_window(self):
         MyGUI2(self.root)
 
 
 
-MyGUI(50)
+MyGUI(50) #führt die classe aus
