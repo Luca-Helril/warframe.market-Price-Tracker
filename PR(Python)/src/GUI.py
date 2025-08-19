@@ -71,6 +71,7 @@ class MyGUI:
         #photoimage = photo.subsample(4, 4)
         
         self.images = [] # zum speichern der bilder damit sie nicht gelöscht werden wenn das programm den sie werden nichtmher gebaucht
+        self.memmory = []
         wiki = WarframeWiki()
         primes_List = wiki.get_primes_list()
         thisCount = 0
@@ -96,7 +97,7 @@ class MyGUI:
                                 thisCount += 1
                             else:
                                 print(picture_path)
-        anotherbutton = tk.Button(self.root, text="HOME", command = self.open_new_window) #wenn der button gedrücht wird wechelt mann in das fenster von GUI2.py
+        anotherbutton = tk.Button(self.root, text="collection", command = self.open_new_window) #wenn der button gedrücht wird wechelt mann in das fenster von GUI2.py
         anotherbutton.place(x=1, y=1, height=50, width=100) # Plazirung von oben links
 
         self.root.mainloop()  # GUI-Schleife starten, damit wenn man button drückt auch etwas passirt

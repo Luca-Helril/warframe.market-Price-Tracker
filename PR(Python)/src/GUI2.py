@@ -44,6 +44,11 @@ class MyGUI2:
 
         self.images = [] # liste wo die bilder gespeichert werden damit sie nicht austomatisch gelöscht werden
 
+
+        
+
+
+
         buttongröße = 1
         font_size = 10
         thisCount = 0
@@ -51,6 +56,7 @@ class MyGUI2:
         # liest liste mit allem warframes aus z.b.["warframe": [name1, name2, name3]]
         for kategori in primes_List:
             for name in primes_List[kategori]:
+                print(name)
                 picture_name = name.lower().replace(" prime", "") + ".png"
                 picture_path = r"D:\__ SAVES __\__PR__\Pictures" + "\\" + picture_name
                 if os.path.exists(picture_path): #wenn bild für den warframe exestirt
@@ -87,7 +93,9 @@ class MyGUI2:
                          
                     buttonframe.rowconfigure(zeile, weight=1)
                     thisCount += 1
-
+                else:
+                    print(name)
+        
         buttonframe.pack(expand=True, fill='both')
 
     # Der boolean value für die bauteile wird geändert und in bezihung dazu auch die farbe der buttons
@@ -109,4 +117,10 @@ class MyGUI2:
 
 
 
-
+if __name__ == "__main__":
+    root = tk.Tk()
+    root.withdraw()  # Hauptfenster verstecken
+    root.tk.call("source", "Azure/azure.tcl")
+    root.tk.call("set_theme", "dark")
+    MyGUI2(root)     # GUI2 öffnen
+    root.mainloop()

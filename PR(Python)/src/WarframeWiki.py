@@ -14,12 +14,13 @@ class WarframeWiki:
             "Warframes": [],
         }
 
-        
+        # wenn liste nicht exestirt wird sie erstllt
         if not os.path.exists('Warframe_ownd_info.pkl'):
             owned_data = self.get_owned_list()
             with open('Warframe_ownd_info.pkl', 'wb') as f:
                 pickle.dump(owned_data, f)
         
+        # wenn die liste exestirt wird sie geladen und in variable gespeichert
         with open('Warframe_ownd_info.pkl', 'rb') as f:
             self.Warframe_ownd_info_list = pickle.load(f)
 
