@@ -19,6 +19,8 @@ from tkinter import ttk
 
 class MyGUI2:
     def __init__(self, root):
+        
+        
         self.window = tk.Toplevel(root)
         self.window.title("Daten Sammlung")
         self.window.geometry("900x600")
@@ -27,76 +29,86 @@ class MyGUI2:
         close_btn = ttk.Button(self.window, text="Close", command=self.window.destroy)
         close_btn.pack(pady=10)
 
-        self.window.columnconfigure(0, weight=1)
-        self.window.columnconfigure(1, weight=1)
-        self.window.columnconfigure(2, weight=1)
-        self.window.columnconfigure(3, weight=1)
-        #self.window.columnconfigure(4, weight=1)
-        #self.window.rowconfigure(4, weight=1)
-
-        buttonframe = tk.Frame(self.window)
-        for i in range(5):
-            buttonframe.columnconfigure(i, weight=1)
 
         wf = WarframeWiki()
         primes_List = wf.get_primes_list()
         owed_list = wf.get_owned_list()
 
+        # https://www.youtube.com/watch?v=0WafQCaok6g
+
+        # Main frame
+        main_frame = Frame(self.window)
+        main_frame.pack(fill = BOTH, expand=1)
+
+        # canvas
+        my_canvas = Canvas(main_frame)
+        my_canvas.pack(side=LEFT, fill = BOTH, expand=1)
+
+        # scrollbar for canvas
+        my_scrollbar = ttk.Scrollbar(main_frame, orient=VERTICAL, command=my_canvas.yview)
+        my_scrollbar.pack(side=RIGHT, fill=Y)
+
+        # configure canvas
+        my_canvas.configure(yscrollcommand=my_scrollbar.set)
+        my_canvas.bind('<Configure>', lambda e: my_canvas.configure(scrollregion=my_canvas.bbox("all")))
+
+        # another frame inside canvas
+        second_frame = Frame(my_canvas)
+
+        # add taht new frame to a wondow in the canvas
+        my_canvas.create_window((0,0), window=second_frame, anchor="nw")
+
+
+
+
+
+        for i in range(5):  # Spalte 0 = Name, Spalte 1-4 = Teile
+            second_frame.grid_columnconfigure(i, weight=1)
+
+
         self.images = [] # liste wo die bilder gespeichert werden damit sie nicht austomatisch gelöscht werden
+        self.buttons = [] # liste wo die Buttons gespeichert werden damit die config für alle gespeichert werden un nicht nur die letzte
 
-
-        
-
-
-
-        buttongröße = 1
-        font_size = 10
-        thisCount = 0
-
-        # liest liste mit allem warframes aus z.b.["warframe": [name1, name2, name3]]
-        for kategori in primes_List:
-            for name in primes_List[kategori]:
-                print(name)
+        zeile = 1
+        for kategori in primes_List: # kategori = alle katogorien wie z.b. "Warframe", "weapos" ...
+            for name in primes_List[kategori]: # name = der name aller warframes
+                
+                # pucture path erstellen, muss angepasst werden das es auf jeden gerät funktionirt _______________________________________________________________________
                 picture_name = name.lower().replace(" prime", "") + ".png"
                 picture_path = r"D:\__ SAVES __\__PR__\Pictures" + "\\" + picture_name
+                
                 if os.path.exists(picture_path): #wenn bild für den warframe exestirt
-                    zeile = thisCount // 5
-
+                    
                     # Image
                     image = Image.open(picture_path)
                     image = image.resize((image.width // 1, image.height // 1))
                     photoimage = ImageTk.PhotoImage(image)
                     self.images.append(photoimage)
+
+                    # Warframe Button mit den bild des Warframes
+                    tk.Button(second_frame, text=name, image=photoimage, compound=LEFT).grid(row=zeile, column=0, sticky="ew", padx=2, pady=2)
                     
-                    # Warframe Buttons
-                    self.btn1 = tk.Button(buttonframe, text=name, width=buttongröße, height=2,
-                             image=photoimage, compound=LEFT, font=('Arial', font_size),
-                             anchor="w", padx=5)
-                            
-                    self.btn1.grid(row=zeile, column=0, sticky="nsew", padx=2, pady=2)
 
-                    # Bauteil Buttons
                     bauteil_list = ["blueprint", "chassis", "neuroptics", "system"]
-                    thisCount2 = 1
+                    spalte = 1
                     for bauteil in bauteil_list:
-                        besitz_zustand = owed_list[kategori][name][bauteil] # Ture oder False wert
+                        besitz_zustand = owed_list[kategori][name][bauteil]  # True oder False
+                        btn = tk.Button(second_frame, text=bauteil)
                         
-                        btn2 = tk.Button(buttonframe,text=bauteil, width=buttongröße, height=2, font=('Arial', font_size), anchor="w", padx=5)
-                        
-                        btn2.grid(row=zeile, column=thisCount2, sticky="nsew", padx=2, pady=2)
-                        btn2.config(command=lambda k=kategori, n=name, b=bauteil, wf=wf, btn=btn2: self.change_state(k, n, b, wf, btn))
-                        
-                        if besitz_zustand: # wemm der boolean wert True ist, also das bauteil ist in besitz wird die farbe zu einen hälleren grau ge#ndert
-                            btn2.config(bg='gray50')
+                        if besitz_zustand:
+                            btn.config(bg='gray50') # Tue = hellgrau = item in besitz
+                        else:
+                            btn.config(bg=ttk.Style().lookup('TButton', 'background')) # False (Defaoult color)
 
-                        thisCount2 += 1
-                         
-                    buttonframe.rowconfigure(zeile, weight=1)
-                    thisCount += 1
-                else:
-                    print(name)
-        
-        buttonframe.pack(expand=True, fill='both')
+                        btn.grid(row=zeile, column=spalte, sticky="ew", padx=2, pady=2)
+                        btn.config(command=lambda k=kategori, n=name, b=bauteil, wf=wf, btn=btn: self.change_state(k, n, b, wf, btn)) # damit wenn der butten gedrückt wird sein zustand geändert wird, aufrufen der change_state methode
+                        self.buttons.append(btn) # Butten listehinzufügen damit config gespeichert wird
+
+                        spalte += 1
+
+                    zeile += 1
+
+
 
     # Der boolean value für die bauteile wird geändert und in bezihung dazu auch die farbe der buttons
     def change_state(self, kategori, name, bauteil, warframeWki, btn):
