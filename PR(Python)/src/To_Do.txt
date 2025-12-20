@@ -12,5 +12,9 @@ wenn man text eigibt werden die buttons die den text endsprechen geheileitet
 waffen, begleiter
     ->schaun wo man die informationen herkrigt weil es beim wiki komplikationen gab
 
+Der bildschirm wird aufgezeichnet oder ein sreanshot wo dann der text auf den bildschirm gelesen wird,
+z.b. am ende einer relict mission, dann wird abgeprüft ob dass dort gezeigte schon in beitz ist oder nicht
+(ggf wie wertfoll es auf warframe.market ist)
+
 
 
