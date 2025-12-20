@@ -10,7 +10,7 @@ from tkinter import *
 from tkinter.ttk import *
 from tkinter import Image
 from PIL import Image, ImageTk
-from GUI2 import MyGUI2
+from Warframe_Collection import Warframe_Collection
 
 
 
@@ -114,7 +114,7 @@ class MyGUI:
 
     #Öffnet ein neues fenster von der classe GUI2.py    
     def open_new_window(self):
-        MyGUI2(self.root)
+        Warframe_Collection(self.root)
 
 
 

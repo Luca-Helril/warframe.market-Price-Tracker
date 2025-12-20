@@ -67,6 +67,9 @@ class Scraping:
             )]
         
         return warframe_map
+    
+
+# weapons scraping https://wiki.warframe.com/w/Prime
             
         
         
