@@ -54,7 +54,8 @@ class WarframeWiki:
 
     
     def get_images(self):
-        output_dir = r"D:\__ SAVES __\__PR__\Pictures"
+        #output_dir = r"D:\__ SAVES __\__PR__\Pictures"
+        output_dir = "./Pictures"
         os.makedirs(output_dir, exist_ok=True)
 
         base_url = "https://wiki.warframe.com"

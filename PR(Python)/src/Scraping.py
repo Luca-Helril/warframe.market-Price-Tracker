@@ -6,11 +6,11 @@ from bs4 import BeautifulSoup
 class Scraping:
 
     def __init__(self, produkt):
-        self.produkt = produkt.replace(' ', '_')
+        self.produkt = produkt.replace(' ', '_') # welcher warframe
  
     def getInfo(self, typ):
         url_x = 'https://api.warframe.market/v2/orders/item/'
-        url = url_x + self.produkt + "_" + typ
+        url = url_x + self.produkt + "_" + typ # typ = welches beuteil
 
         headers = {
             "User-Agent": "Mozilla/5.0",
@@ -55,6 +55,7 @@ class Scraping:
             warframe_map.get("chassis")[0] + 
             warframe_map.get("neuroptics")[0] + 
             warframe_map.get("systems")[0]
+            # set wird extra weggelassen
             )]
         
         warframe_map["gesammt minimum"] = int = [(
@@ -62,6 +63,7 @@ class Scraping:
             warframe_map.get("chassis")[1] + 
             warframe_map.get("neuroptics")[1] + 
             warframe_map.get("systems")[1]
+            # set wird extra weggelassen
             )]
         
         return warframe_map

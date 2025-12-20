@@ -73,9 +73,11 @@ class MyGUI2:
         for kategori in primes_List: # kategori = alle katogorien wie z.b. "Warframe", "weapos" ...
             for name in primes_List[kategori]: # name = der name aller warframes
                 
-                # pucture path erstellen, muss angepasst werden das es auf jeden gerät funktionirt _______________________________________________________________________
                 picture_name = name.lower().replace(" prime", "") + ".png"
                 picture_path = r"D:\__ SAVES __\__PR__\Pictures" + "\\" + picture_name
+                
+                #BASE_DIR = Path(__file__).resolve().parent  # __PR__
+                #picture_path = BASE_DIR / "Pictures" / picture_name
                 
                 if os.path.exists(picture_path): #wenn bild für den warframe exestirt
                     
