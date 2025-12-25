@@ -11,16 +11,14 @@ from tkinter.ttk import *
 from tkinter import Image
 from PIL import Image, ImageTk
 from Warframe_Collection import Warframe_Collection
+from Price_Tracker import Price_Tracker
 
 
 class HomeGUI:
 
-    def __init__(self):
-        self.root = tk.Tk()
+    def __init__(self, root):
+        self.root = root
 
-        #Theme
-        self.root.tk.call("source", "Azure/azure.tcl")
-        self.root.tk.call("set_theme", "dark")
 
         self.root.geometry("900x600") # Demensionen
         self.root.title("Warframe Tracker")
@@ -33,26 +31,38 @@ class HomeGUI:
         width = 40
         height = 15
 
-        btn1 = tk.Button(self.root, text="[|]", bg="teal", command= self.choose1, width = width, height=height).grid(row=0, column=0, sticky="new", padx=2,pady=2)
-        btn2 = tk.Button(self.root, text="[|]", bg="teal", command= self.choose2, width = width, height=height).grid(row=0, column=1, sticky="new", padx=2,pady=2)
-        btn3 = tk.Button(self.root, text="[|]", bg="teal", command= self.choose3, width = width, height=height).grid(row=0, column=2, sticky="new", padx=2,pady=2)
+        btn1 = tk.Button(self.root, text="Price Tracker", bg="teal", command= self.choose1, width = width, height=height).grid(row=0, column=0, sticky="new", padx=2,pady=2)
+        btn2 = tk.Button(self.root, text="Collection", bg="teal", command= self.choose2, width = width, height=height).grid(row=0, column=1, sticky="new", padx=2,pady=2)
+        btn3 = tk.Button(self.root, text="Screen scan", bg="teal", command= self.choose3, width = width, height=height).grid(row=0, column=2, sticky="new", padx=2,pady=2)
         
-        lbl=Label(self.root,text="Pick a Decade",font=  ("Times","40","bold italic"))
+        lbl=Label(self.root,text="",font=  ("Times","40","bold italic"))
         lbl.grid(row=1,column=0)
 
 
-        self.root.mainloop()  # GUI-Schleife starten, damit wenn man button drückt auch etwas passirt
-
-    # later to call warframe_collection
+    # later to call Price Tracker
     def choose1(self):
         print("button 1")
+        self.root.withdraw()
+        Price_Tracker(self.root, 70)
 
-    # later to call Gui
+
+    # later to call warframe_collection
     def choose2(self):
         print("button 2")
+        self.root.withdraw()    
+        Warframe_Collection(self.root)
+        
 
     # later to call Sreen_scant -> png_text_extractor
     def choose3(self):
         print("button 3")
+        self.root.withdraw()  
 
-HomeGUI()
+if __name__ == "__main__":
+    root = tk.Tk()#
+    root.tk.call("source", "Azure/azure.tcl")
+    root.tk.call("set_theme", "dark")
+    HomeGUI(root)
+    root.mainloop() # GUI-Schleife starten, damit wenn man button drückt auch etwas passirt
+
+      

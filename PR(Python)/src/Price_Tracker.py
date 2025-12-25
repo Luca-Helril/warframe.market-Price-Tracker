@@ -14,15 +14,12 @@ from Warframe_Collection import Warframe_Collection
 
 
 
-class MyGUI:
+class Price_Tracker:
     
 
-    def __init__(self, buttons):
-        self.root = tk.Tk()
+    def __init__(self, root, buttons):
 
-        #Theme
-        self.root.tk.call("source", "Azure/azure.tcl")
-        self.root.tk.call("set_theme", "dark")
+        self.root = tk.Toplevel(root)
 
         self.root.geometry("900x600") # Demensionen
         self.root.title("Warframe Tracker")
@@ -100,7 +97,7 @@ class MyGUI:
         anotherbutton = tk.Button(self.root, text="collection", command = self.open_new_window) #wenn der button gedrücht wird wechelt mann in das fenster von GUI2.py
         anotherbutton.place(x=1, y=1, height=50, width=100) # Plazirung von oben links
 
-        self.root.mainloop()  # GUI-Schleife starten, damit wenn man button drückt auch etwas passirt
+        #self.root.mainloop()  # GUI-Schleife starten, damit wenn man button drückt auch etwas passirt
 
 
     #Gibt die informationen zu den warframe dessen Button man angeklickt hat in Lable aus
@@ -116,6 +113,4 @@ class MyGUI:
     def open_new_window(self):
         Warframe_Collection(self.root)
 
-
-
-MyGUI(50) #führt die classe aus
+    
